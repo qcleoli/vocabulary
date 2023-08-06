@@ -1,0 +1,11 @@
+.video{
+  position: relative;
+  width: 90%;
+  height: 60vh;
+  border: solid;
+}
+.o1{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
