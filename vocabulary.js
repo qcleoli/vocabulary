@@ -2,6 +2,7 @@ const a2 = [[["信札","书信, 信件","letter"],["拆封","chinese definition"
 let words, word;
 let order = [];
 let choices = [];
+let correct = 0;
 //select by line
 function testTwo(a){
   for(let i=0; i<a2[a].length;i++){
@@ -45,10 +46,10 @@ function line(a){
   return a4;
 }
 //display words line by line
-function join(a){
+function joinLine(){
   let a3 = "";
-  for(let i=0; i<a.length; i++){
-      a3 += `<button onclick="testTwo(${i})">i</button>` + line(i) + "<br>";
+  for(let i=0; i<a2.length; i++){
+      a3 += `<button onclick="testTwo(${i})">${i}</button>` + line(i) + "<br>";
   }
   return a3;
 }
@@ -71,35 +72,27 @@ function questionSet(){
 //randomize words order
 function randomSet(){
   let a19 = words.length;
-  console.log(a19);
   for(let i=0; i<a19; i++){
     let a17 = Math.floor(Math.random() * (a19))
-    console.log("randomSet2" + a17);
     while(order.includes(a17)){
       a17 = Math.floor(Math.random() * (a19))
-      console.log("randomSet1" + a17);
     }
     order.push(a17);
   }  
-  console.log("randomSet" + " " + order);
 }
 //random choices
 function choice(){
   let a14 = [];
   let a20 = a2.length;
   let a21 = Math.floor(Math.random()*4);
-  console.log("a1" + a21);
   for(let i=0; i<4; i++){
     let a15 = [];
     if(i == a21){
       a14.push(words[order[word]]);
- //     console.log("a2 " + a14);
     }else{
       a15[0] = Math.floor(Math.random()*(a20));
-      a15[1] = Math.floor(Math.random() * (a2[a15[0]].length));
- //     console.log("a15 " + a15); 
+      a15[1] = Math.floor(Math.random() * (a2[a15[0]].length)); 
       a14[i] = a15;
- //     console.log("a14i " + a14);
 /*
       
       while(a14.includes(a15)){
@@ -110,14 +103,13 @@ function choice(){
   }
   
   choices = a14;
-  console.log("a14" + a14);
 }
 //display choice
 function showChoices(){
   choice();
   a20 = document.getElementById("content");
   for(let i=0; i<4; i++){
-  a20.innerHTML += `<input type='radio' id=${i} name="choice" value=${a2[choices[i][0]][choices[i][1]][2]}><label for=${i}>${a2[choices[i][0]][choices[i][1]][2]}</label><br>`;
+  a20.innerHTML += `<input type='radio' id=${i} name="choice" value="${a2[choices[i][0]][choices[i][1]][2]}"><label for=${i}>${a2[choices[i][0]][choices[i][1]][2]}</label><br>`;
   }
 }
 //create individual question
@@ -128,6 +120,23 @@ function question(){
     word += 1;
   }else {
     document.getElementById("next").disabled = true;
+    document.getElementById("result").disabled = true;
+    document.getElementById("content").innerHTML = "Total correct questions: " + correct + " correct out of " + words.length + " questions.";
+  }
+}
+function checking(){
+  answer = a2[words[order[word-1]][0]][words[order[word-1]][1]][2];
+  values = document.getElementsByName("choice");
+  show = document.getElementById("content");
+  for(let i=0; i<values.length; i++){
+    if(values[i].checked){
+      if(values[i].value == answer){
+        show.innerHTML += "\u2705 The correct answer is " + answer + ".";
+        correct += 1;
+      }else{
+        show.innerHTML += "\u274C The correct answer is " + answer + ".";
+      } 
+    }
   }
 }
 //create multiple choices
@@ -137,9 +146,11 @@ function questions(){
   randomSet();
   question();
   document.getElementById("button").innerHTML = "<button id='next' onclick='question()'>Next</button>";
+  document.getElementById("button").innerHTML += "<button id='result' onclick='checking()'>Check answer</button>";
+  document.getElementById("button").innerHTML += "<button id='restart' onclick='multipleChoice()'>Restart</button>";
 }
 function multipleChoice(){
  const a1 = document.getElementById("content");
- a1.innerHTML = join(a2, "<br>");
+ a1.innerHTML = joinLine();
  document.getElementById("button").innerHTML = "<button onclick='questions()'>start</button>";
 }
