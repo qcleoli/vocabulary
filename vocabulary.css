@@ -13,9 +13,12 @@ input[type="radio"]{
   margin-bottom: 20px;
 }
 #content{
-  padding-left: 20vw;
+  padding-left: 40vw;
   margin-top: 40px;
 }
 #ce, #english, #chinese{
   margin-bottom: 20px;
+}
+#video{
+  margin: auto;
 }
