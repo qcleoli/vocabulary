@@ -116,7 +116,7 @@ function showChoices(){
 //create individual question
 function question(){
   if(word < words.length){
-    document.getElementById("content").innerHTML = a2[words[order[word]][0]][words[order[word]][1]][0] + "<br>";
+    document.getElementById("content").innerHTML = "<div id='q'>" + a2[words[order[word]][0]][words[order[word]][1]][0] + "</div>" + "<br>";
     showChoices();
     word += 1;
   }else {
