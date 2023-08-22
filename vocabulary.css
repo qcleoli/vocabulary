@@ -38,3 +38,6 @@ input[type="radio"]{
   float: right;
   padding: 10px 20px;
 }
+label{
+  margin-left: 10px;
+}
