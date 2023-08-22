@@ -47,9 +47,9 @@ function line(a){
 }
 //display words line by line
 function joinLine(){
-  let a3 = "";
+  let a3 = "<p id='instruction'>Click on a line number to select the line or click on a word to select the word.</p><br>";
   for(let i=0; i<a2.length; i++){
-      a3 += `<button onclick="selectLine(${i})">${i}</button>` + line(i) + "<br>";
+      a3 += `<button class="lineButton" onclick="selectLine(${i})">${i}</button>` + line(i) + "<br>";
   }
   return a3;
 }
@@ -127,9 +127,9 @@ function question(){
 }
 //check radio button selection
 //need to disable all radio button
+//need to work on next and checking
 function checking(){
   answer = a2[words[order[word-1]][0]][words[order[word-1]][1]][2];
-  console.log("answer:" + answer + " word:" + word + " order:" + order[word-1] + " words:" + words[order[word-1]]);
   values = document.getElementsByName("choice");
   show = document.getElementById("content");
   for(let i=0; i<values.length; i++){

@@ -41,3 +41,10 @@ input[type="radio"]{
 label{
   margin-left: 10px;
 }
+.lineButton{
+  margin-right: 10px;
+  padding: 5px 10px;
+}
+#instruction{
+  margin-bottom: 20px;
+}
