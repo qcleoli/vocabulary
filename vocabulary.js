@@ -3,6 +3,11 @@ let words, word;
 let order;
 let choices = [];
 let correct = 0;
+// svg circle
+function imageOne(){
+  let a23 = '<svg><rect x="10" y="10" width="20" height="20" fill="orange" /><rect x="15" y="15" width="20" height="20" fill="blue" fill-opacity="0.7" /></svg>'
+  return a23;
+}
 //select by line
 function selectLine(a){
   for(let i=0; i<a2[a].length;i++){
@@ -49,7 +54,8 @@ function line(a){
 function joinLine(){
   let a3 = "<p id='instruction'>Click on a line number to select the line or click on a word to select the word.</p><br>";
   for(let i=0; i<a2.length; i++){
-      a3 += `<button class="lineButton" onclick="selectLine(${i})">${i}</button>` + line(i) + "<br>";
+      a3 += `<div class="lineButton2" onclick="selectLine(${i})">` + imageOne();
+      a3 += `<div class="lineButton">${i}</div></div>` + line(i) + "<br>";
   }
   return a3;
 }
@@ -116,7 +122,7 @@ function showChoices(){
 //create individual question
 function question(){
   if(word < words.length){
-    document.getElementById("content").innerHTML = "<div id='q'>" + a2[words[order[word]][0]][words[order[word]][1]][0] + "</div>" + "<br>";
+    document.getElementById("content").innerHTML = imageOne() + "<div id='q'>" + a2[words[order[word]][0]][words[order[word]][1]][0] + "</div>" + "<br><br>";
     showChoices();
     word += 1;
   }else {
@@ -135,7 +141,6 @@ function checking(){
   for(let i=0; i<values.length; i++){
     if(values[i].checked){
       if(values[i].value == answer){
-        //2705
         show.innerHTML = "\u2713 The correct answer is " + answer + ".<br>";
         //correct += 1;
         result = true;
