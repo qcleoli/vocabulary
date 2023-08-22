@@ -48,3 +48,13 @@ label{
 #instruction{
   margin-bottom: 20px;
 }
+#message{
+  width: 40vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+.language{
+  padding: 10px 20px;
+  height: 50px;
+  width: 35vw;
+}
