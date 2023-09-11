@@ -180,6 +180,11 @@ function nextq(){
   question();
   document.getElementById("message").innerHTML = "";
 }
+//restart
+function restartOne(){
+  document.getElementById("message").innerHTML = "";
+  multipleChoice(definitionChoice);
+}
 //create multiple choices
 function questions(){
   if(questionSet().length){
@@ -187,7 +192,7 @@ function questions(){
     word = 0;
     randomSet();
     question();
-    document.getElementById("button").innerHTML = "<button id='restart' onclick='multipleChoice(definitionChoice)'>Restart</button>";
+    document.getElementById("button").innerHTML = "<button id='restart' onclick='restartOne()'>Restart</button>";
     document.getElementById("button").innerHTML += "<button id='next' onclick='nextq()'>Next</button>";
     document.getElementById("button").innerHTML += "<button id='result' onclick='checking()'>Check answer</button>";
   }else{
