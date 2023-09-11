@@ -73,3 +73,7 @@ svg{
   //border: 1px solid;
   top: 10px;  
 }
+#restart, #next, #result {
+margin-left: 10px;
+margin-top: 10px;
+}
