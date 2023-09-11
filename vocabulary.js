@@ -182,6 +182,7 @@ function nextq(){
 //restart
 function restartOne(){
   document.getElementById("message").innerHTML = "";
+  correct = 0;
   multipleChoice(definitionChoice);
 }
 //create multiple choices
