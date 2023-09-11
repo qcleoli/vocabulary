@@ -1,5 +1,5 @@
 const a2 = [[["信札","书信, 信件","letter"],["拆封","chinese definition", "English definition"],["谁","chinese definition", "English definition"],["为难","chinese definition", "English definition"]],[["不过","chinese definition", "English definition"],["寥寥","chinese definition", "English definition"],["数行","chinese definition", "English definition"]],[["娟秀","chinese definition", "English definition"],["字迹","chinese definition", "English definition"],["温柔","chinese definition", "English definition"],["却","chinese definition", "English definition"],["感伤","chinese definition", "English definition"]],[["你","chinese definition", "English definition"],["将","chinese definition", "English definition"],["心事","chinese definition", "English definition"],["上了","chinese definition", "English definition"],["淡妆","chinese definition", "English definition"]],[["该说的","chinese definition", "English definition"],["话","chinese definition", "English definition"],["却","chinese definition", "English definition"],["被","chinese definition", "English definition"],["仔细","chinese definition", "English definition"],["收藏","chinese definition", "English definition"]],[["暮色","chinese definition", "English definition"],["望","chinese definition", "English definition"],["垂杨","chinese definition", "English definition"]],[["拱桥","chinese definition", "English definition"],["粼粼","chinese definition", "English definition"],["月光","chinese definition", "English definition"]],[["忆","chinese definition", "English definition"],["往事","chinese definition", "English definition"],["我","chinese definition", "English definition"],["走笔","chinese definition", "English definition"],["也","chinese definition", "English definition"],["阑珊","chinese definition", "English definition"]],[["红颜如霜","chinese definition", "English definition"],["凝结了","chinese definition", "English definition"],["过往","chinese definition", "English definition"]],[["芦苇花","chinese definition", "English definition"],["开","chinese definition", "English definition"],["岁","chinese definition", "English definition"],["已寒","chinese definition", "English definition"]],[["若","chinese definition", "English definition"],["霜","chinese definition", "English definition"],["又降","chinese definition", "English definition"],["路遥","chinese definition", "English definition"],["漫长","chinese definition", "English definition"]],[["墙外","chinese definition", "English definition"],["是谁","chinese definition", "English definition"],["在吟唱","chinese definition", "English definition"],["凤求凰","chinese definition", "English definition"]],[["梨园","chinese definition", "English definition"],["台上","chinese definition", "English definition"],["西皮二黄","chinese definition", "English definition"]],[["却","chinese definition", "English definition"],["少了","chinese definition", "English definition"],["你","chinese definition", "English definition"],["无人问暖","chinese definition", "English definition"]],[["谁","chinese definition", "English definition"],["在","chinese definition", "English definition"],["彼岸","chinese definition", "English definition"],["天涯一方","chinese definition", "English definition"]],[["一句","chinese definition", "English definition"],["甚安无念","chinese definition", "English definition"]],[["你说","chinese definition", "English definition"],["落笔","chinese definition", "English definition"],["太难","chinese definition", "English definition"]],[["窗外","chinese definition", "English definition"],["古琴","chinese definition", "English definition"],["幽兰","chinese definition", "English definition"]],[["琴声","chinese definition", "English definition"],["平添","chinese definition", "English definition"],["孤单","chinese definition", "English definition"]],[["我","chinese definition", "English definition"],["墨","chinese definition", "English definition"],["走了","chinese definition", "English definition"],["几行","chinese definition", "English definition"]],[["泪","chinese definition", "English definition"],["潸然","chinese definition", "English definition"],["落了款","chinese definition", "English definition"]],[["思念","chinese definition", "English definition"],["徒留","chinese definition", "English definition"],["纸上","chinese definition", "English definition"]],[["一整篇","chinese definition", "English definition"],["被晕染","chinese definition", "English definition"]],[["何故","chinese definition", "English definition"],["远走","chinese definition", "English definition"],["潇湘","chinese definition", "English definition"]],[["你","chinese definition", "English definition"],["却","chinese definition", "English definition"],["语多委婉","chinese definition", "English definition"]],[["走过","chinese definition", "English definition"],["萧瑟","chinese definition", "English definition"],["秋凉","chinese definition", "English definition"]],[["等来","chinese definition", "English definition"],["芒草","chinese definition", "English definition"],["催黄","chinese definition", "English definition"]],[["而","chinese definition", "English definition"],["我","chinese definition", "English definition"],["遥望","chinese definition", "English definition"],["轻轻叹","chinese definition", "English definition"]],[["捎来的","chinese definition", "English definition"],["他乡","chinese definition", "English definition"]],[["到底","chinese definition", "English definition"],["隔","chinese definition", "English definition"],["几条江","chinese definition", "English definition"]],[["一封信","chinese definition", "English definition"],["到底","chinese definition", "English definition"],["转了","chinese definition", "English definition"],["几道弯","chinese definition", "English definition"]],[["缘分","chinese definition", "English definition"],["飘落在","chinese definition", "English definition"],["山外山","chinese definition", "English definition"]],[["而","chinese definition", "English definition"],["鱼雁","chinese definition", "English definition"],["不在往返","chinese definition", "English definition"]]];
-let words, word;
+let words, word, definitionChoice;
 let order;
 let choices = [];
 let correct = 0;
@@ -114,15 +114,26 @@ function choice(){
 //display choice
 function showChoices(){
   choice();
+  let a25 = 2;
+  // ce is 2 english is 3 chinese is 1
+  if (definitionChoice == "english") {
+    a25 = 3;
+  } else if (definitionChoice == "chinese") {
+    a25 = 1;
+  }
   a20 = document.getElementById("content");
   for(let i=0; i<4; i++){
-  a20.innerHTML += `<input type='radio' id=${i} name="choice" value="${a2[choices[i][0]][choices[i][1]][2]}"><label for=${i}>${a2[choices[i][0]][choices[i][1]][2]}</label><br>`;
+    a20.innerHTML += `<input type='radio' id=${i} name="choice" value="${a2[choices[i][0]][choices[i][1]][a25]}"><label for=${i}>${a2[choices[i][0]][choices[i][1]][a25]}</label><br>`;
   }
 }
 //create individual question
 function question(){
+  let a24 = 0;
+  if(definitionChoice == "english"){
+    a24 = 2;
+  }
   if(word < words.length){
-    document.getElementById("content").innerHTML = imageOne() + "<div id='q'>" + a2[words[order[word]][0]][words[order[word]][1]][0] + "</div>" + "<br><br>";
+    document.getElementById("content").innerHTML = imageOne() + "<div id='q'>" + a2[words[order[word]][0]][words[order[word]][1]][a24] + "</div>" + "<br><br>";
     showChoices();
     word += 1;
   }else {
@@ -134,7 +145,13 @@ function question(){
 //check radio button selection
 //need to disable all radio button
 function checking(){
-  answer = a2[words[order[word-1]][0]][words[order[word-1]][1]][2];
+  let a25 = 2;
+  if (definitionChoice == "english") {
+    a25 = 3;
+  } else if (definitionChoice == "chinese") {
+    a25 = 1;
+  }
+  answer = a2[words[order[word-1]][0]][words[order[word-1]][1]][a25];
   values = document.getElementsByName("choice");
   show = document.getElementById("message");
   let result = false;
@@ -170,14 +187,16 @@ function questions(){
     word = 0;
     randomSet();
     question();
-    document.getElementById("button").innerHTML = "<button id='restart' onclick='multipleChoice()'>Restart</button>";
+    document.getElementById("button").innerHTML = "<button id='restart' onclick='multipleChoice(definitionChoice)'>Restart</button>";
     document.getElementById("button").innerHTML += "<button id='next' onclick='nextq()'>Next</button>";
     document.getElementById("button").innerHTML += "<button id='result' onclick='checking()'>Check answer</button>";
   }else{
     document.getElementById("content").innerHTML += "<div id='noSelection'>You did not select any words.</div>";
   }
 }
-function multipleChoice(){
+//generating word choices and learning path
+function multipleChoice(c){
+ definitionChoice = c;
  const a1 = document.getElementById("content");
  a1.innerHTML = joinLine();
  document.getElementById("button").innerHTML = "<button onclick='questions()'>start</button>";
